@@ -86,7 +86,7 @@ class _MondayState extends State<Monday> {
                       Color(0xFF42A5F5),
                     ]),
                     border: Border.all(),
-                    borderRadius: BorderRadius.circular(12)),
+                    borderRadius: BorderRadius.circular(25)),
                 child: TimePickerSpinner(
                   is24HourMode: false,
                   normalTextStyle: TextStyle(fontSize: 24, color: Colors.black),
