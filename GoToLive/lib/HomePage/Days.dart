@@ -22,7 +22,8 @@ class Days extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed('/monday');
+                      Navigator.of(context)
+                          .pushNamed('/monday', arguments: {'title': "Monday"});
                     },
                     child: Padding(
                       padding:

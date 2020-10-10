@@ -1,10 +1,8 @@
-
-
 import 'package:flutter/material.dart';
 
+import 'Days/monday.dart';
 import 'HomePage/Days.dart';
 import 'HomePage/Homepage.dart';
-
 
 void main() {
   runApp(MyApp());
@@ -35,10 +33,10 @@ class MyApp extends StatelessWidget {
       routes: {
         '/days': (context) => Days(),
         '/monday': (context) => Monday(),
-        '/tuesday': (context) => Tuesday(),
-        '/wednesday': (context) => Wednesday(),
-        '/thursday': (context) => Thursday(),
-        '/friday': (context) => Friday(),
+        //   '/tuesday': (context) => Tuesday(),
+        //   '/wednesday': (context) => Wednesday(),
+        //   '/thursday': (context) => Thursday(),
+        //   '/friday': (context) => Friday(),
       },
       home: HomePage(),
     );
