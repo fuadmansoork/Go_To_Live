@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class InputForm extends StatefulWidget {
   @override
@@ -7,6 +8,8 @@ class InputForm extends StatefulWidget {
 
 class _InputFormState extends State<InputForm> {
   String timeText = "";
+  var meridian = "am";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,105 +26,116 @@ class _InputFormState extends State<InputForm> {
               children: [
                 Form(
                     child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 10),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20)),
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 10),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20.0, horizontal: 10),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20))),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20))),
+                        ),
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(timeText),
-                        RaisedButton.icon(
-                            onPressed: () {
-                              timePicker(context);
-                            },
-                            icon: Icon(
-                              Icons.alarm,
-                              color: Colors.red,
-                            ),
-                            label: Text("SET"))
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 30.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          FlatButton(
-                            child: Text("Cancel"),
-                            onPressed: () {},
+                          Container(
+                            margin: EdgeInsets.only(top: 10),
+                            width: 150,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Expanded(
+                                    child: TextFormField(
+                                  maxLength: 2,
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.only(left: 15),
+                                    counterText: "",
+                                    border: OutlineInputBorder(),
+                                  ),
+                                )),
+                                Flexible(
+                                    child: Text(
+                                  ":",
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                                Expanded(
+                                    child: TextFormField(
+                                  maxLength: 2,
+                                  decoration: InputDecoration(
+                                    counterText: "",
+                                    contentPadding: EdgeInsets.only(left: 15),
+                                    border: OutlineInputBorder(),
+                                  ),
+                                )),
+                              ],
+                            ),
                           ),
-                          FlatButton(
-                            onPressed: () {},
-                            child: Text("Save"),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: ToggleSwitch(
+                              activeBgColor: Colors.red,
+                              cornerRadius: 12,
+                              changeOnTap: true,
+                              minWidth: 45,
+                              initialLabelIndex: 0,
+                              labels: ["am", "pm"],
+                              onToggle: (index) {
+                                print('switched to: $index');
+                                if (index == 0) {
+                                  meridian = "am";
+                                } else {
+                                  meridian = "pm";
+                                }
+                                print(meridian);
+                              },
+                            ),
                           ),
                         ],
                       ),
-                    )
-                  ],
-                )),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 30.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            FlatButton(
+                              child: Text(
+                                "Cancel",
+                                style:
+                                    TextStyle(color: Colors.red, fontSize: 18),
+                              ),
+                              onPressed: () {},
+                            ),
+                            FlatButton(
+                              onPressed: () {},
+                              child: Text(
+                                "Save",
+                                style:
+                                    TextStyle(fontSize: 18, color: Colors.blue),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ])),
               ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  Future timePicker(BuildContext context) async {
-    TimeOfDay initial = TimeOfDay.now();
-    TimeOfDay time;
-    var hour = "";
-    var meridean = "";
-    var minute = "";
-
-    time = await showTimePicker(
-        builder: (context, child) => Theme(
-              data: ThemeData.dark(),
-              child: child,
-            ),
-        context: context,
-        initialTime: initial);
-    if (time != null) {
-      if (time.hour == 0) {
-        hour = "12";
-        meridean = "am";
-      } else if (time.hour == 12) {
-        hour = "12";
-        meridean = "pm";
-      } else if (time.hour > 12) {
-        hour = (time.hour - 12).toString();
-        meridean = "pm";
-      } else {
-        hour = time.hour.toString();
-        meridean = "am";
-      }
-      if (time.minute < 10) {
-        minute = "0" + time.minute.toString();
-      } else {
-        minute = time.minute.toString();
-      }
-
-      setState(() {
-        timeText = hour + "  : " + minute + " $meridean ";
-      });
-    }
   }
 }
