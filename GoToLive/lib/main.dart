@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'Days/monday.dart';
+import 'Days/monday/monday.dart';
 import 'HomePage/Days.dart';
 import 'HomePage/Homepage.dart';
 
