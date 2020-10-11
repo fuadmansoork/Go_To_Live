@@ -6,6 +6,7 @@ class InputForm extends StatefulWidget {
 }
 
 class _InputFormState extends State<InputForm> {
+  String timeText = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,9 +47,11 @@ class _InputFormState extends State<InputForm> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text("00 : 00 am"),
+                        Text(timeText),
                         RaisedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              timePicker(context);
+                            },
                             icon: Icon(
                               Icons.alarm,
                               color: Colors.red,
@@ -73,12 +76,52 @@ class _InputFormState extends State<InputForm> {
                       ),
                     )
                   ],
-                ))
+                )),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  Future timePicker(BuildContext context) async {
+    TimeOfDay initial = TimeOfDay.now();
+    TimeOfDay time;
+    var hour = "";
+    var meridean = "";
+    var minute = "";
+
+    time = await showTimePicker(
+        builder: (context, child) => Theme(
+              data: ThemeData.dark(),
+              child: child,
+            ),
+        context: context,
+        initialTime: initial);
+    if (time != null) {
+      if (time.hour == 0) {
+        hour = "12";
+        meridean = "am";
+      } else if (time.hour == 12) {
+        hour = "12";
+        meridean = "pm";
+      } else if (time.hour > 12) {
+        hour = (time.hour - 12).toString();
+        meridean = "pm";
+      } else {
+        hour = time.hour.toString();
+        meridean = "am";
+      }
+      if (time.minute < 10) {
+        minute = "0" + time.minute.toString();
+      } else {
+        minute = time.minute.toString();
+      }
+
+      setState(() {
+        timeText = hour + "  : " + minute + " $meridean ";
+      });
+    }
   }
 }
