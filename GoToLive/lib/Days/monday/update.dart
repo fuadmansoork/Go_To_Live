@@ -34,9 +34,14 @@ class _UpdateFormState extends State<UpdateForm> {
 
     Subject = widget.data['subject'];
     url = widget.data['url'];
-    time = widget.data['time'];
-    hour = time[0] + time[1];
-    minute = time[5] + time[6];
+    minute = widget.data['minute'].toString();
+
+    if (widget.data['hour'] > 12) {
+      hour = (widget.data['hour'] - 12).toString();
+      print(hour);
+    } else {
+      hour = widget.data['hour'].toString();
+    }
   }
 
   @override
@@ -86,11 +91,6 @@ class _UpdateFormState extends State<UpdateForm> {
                                 url = value;
                                 print(url);
                               },
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return "This field is required";
-                                }
-                              },
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(20))),
@@ -108,8 +108,7 @@ class _UpdateFormState extends State<UpdateForm> {
                                   children: [
                                     Expanded(
                                         child: TextFormField(
-                                      initialValue: widget.data['time'][0] +
-                                          widget.data['time'][1],
+                                      initialValue: hour,
                                       onChanged: (value) {
                                         hour = value;
                                       },
@@ -145,8 +144,8 @@ class _UpdateFormState extends State<UpdateForm> {
                                     )),
                                     Expanded(
                                         child: TextFormField(
-                                      initialValue: widget.data['time'][5] +
-                                          widget.data['time'][6],
+                                      initialValue:
+                                          widget.data['minute'].toString(),
                                       keyboardType: TextInputType.datetime,
                                       onChanged: (value) {
                                         minute = value;
@@ -250,7 +249,7 @@ class _UpdateFormState extends State<UpdateForm> {
         minute = "0" + minute;
       }
 
-      time = hour + " : " + minute + meridian;
+      // time = hour + " : " + minute + meridian;
       save();
     } else {
       print("not validated");
@@ -263,7 +262,9 @@ class _UpdateFormState extends State<UpdateForm> {
       "day": day,
       "subject": Subject,
       "url": url,
-      "time": time,
+      "hour": int.parse(hour),
+      "minute": int.parse(minute),
+      "meridian": meridian,
       "id": widget.data['id']
     });
     print(i);

@@ -10,7 +10,9 @@ class DatabaseHelper {
   static final _columnId = 'id';
   static final _day = "day";
   static final _subjectname = 'subject';
-  static final _time = 'time';
+  static final _hour = 'hour';
+  static final _minute = 'minute';
+  static final _meridian = "meridian";
   static final _url = 'url';
   DatabaseHelper._privateConstructor();
   static final instance = DatabaseHelper._privateConstructor();
@@ -37,7 +39,9 @@ CREATE TABLE $_tablename(
 $_columnId INTEGER PRIMARY KEY,
 $_subjectname TEXT ,
 $_url TEXT ,
-$_time TEXT ,
+$_hour INT,
+$_minute INT,
+$_meridian TEXT,
 $_day TEXT 
 )
 ''');
@@ -51,7 +55,7 @@ $_day TEXT
   Future<List<Map<String, dynamic>>> query(String day) async {
     Database db = await instance.database;
     return await db.rawQuery(
-        "SELECT * FROM $_tablename WHERE $_day='$day' ORDER BY $_time");
+        "SELECT * FROM $_tablename WHERE $_day='$day' ORDER BY $_hour,$_minute");
   }
 
   Future<List<Map<String, dynamic>>> queryAll() async {

@@ -11,6 +11,7 @@ class Monday extends StatefulWidget {
 }
 
 class _MondayState extends State<Monday> {
+  var minuteString = "";
   var future = DatabaseHelper.instance.query("monday");
   @override
   Widget build(BuildContext context) {
@@ -42,6 +43,13 @@ class _MondayState extends State<Monday> {
             return ListView.builder(
               itemCount: snapshot.data == null ? 0 : snapshot.data.length,
               itemBuilder: (context, index) {
+                if (snapshot.data[index]['minute'] < 10) {
+                  minuteString =
+                      "0" + snapshot.data[index]['minute'].toString();
+                } else {
+                  minuteString = snapshot.data[index]['minute'].toString();
+                }
+
                 return Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -69,7 +77,11 @@ class _MondayState extends State<Monday> {
                                     fontSize: 20, color: Colors.white),
                               ),
                               Text(
-                                snapshot.data[index]['time'],
+                                snapshot.data[index]['hour'].toString() +
+                                    ':' +
+                                    minuteString +
+                                    " " +
+                                    snapshot.data[index]['meridian'],
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 15),
                               )
