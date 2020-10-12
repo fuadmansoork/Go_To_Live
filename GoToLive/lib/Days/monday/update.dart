@@ -2,26 +2,43 @@ import 'package:GoToLive/database/db.dart';
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
-class InputForm extends StatefulWidget {
+class UpdateForm extends StatefulWidget {
+  final Map data;
+
+  const UpdateForm({Key key, this.data}) : super(key: key);
+
   @override
-  _InputFormState createState() => _InputFormState();
+  _UpdateFormState createState() => _UpdateFormState();
 }
 
-class _InputFormState extends State<InputForm> {
+class _UpdateFormState extends State<UpdateForm> {
   String timeText = "";
   var meridian = "am";
-  var subjectController = TextEditingController();
-  var linkController = TextEditingController();
-  var hourController = TextEditingController();
-  var minuteController = TextEditingController();
   var _formKey = GlobalKey<FormState>();
 
+  var subjectController = TextEditingController(text: 'subject');
+  var linkController = TextEditingController(text: 'url');
+  var hourController = TextEditingController();
+  var minuteController = TextEditingController();
   var Subject = "";
   String url = "";
   String day = "monday";
   var hour = "";
   var minute = "";
   var time = "";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    Subject = widget.data['subject'];
+    url = widget.data['url'];
+    time = widget.data['time'];
+    hour = time[0] + time[1];
+    minute = time[5] + time[6];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,6 +62,7 @@ class _InputFormState extends State<InputForm> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 10),
                             child: TextFormField(
+                              initialValue: widget.data['subject'],
                               onChanged: (value) {
                                 Subject = value;
                               },
@@ -63,6 +81,7 @@ class _InputFormState extends State<InputForm> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 10),
                             child: TextFormField(
+                              initialValue: widget.data['url'],
                               onChanged: (value) {
                                 url = value;
                                 print(url);
@@ -89,6 +108,8 @@ class _InputFormState extends State<InputForm> {
                                   children: [
                                     Expanded(
                                         child: TextFormField(
+                                      initialValue: widget.data['time'][0] +
+                                          widget.data['time'][1],
                                       onChanged: (value) {
                                         hour = value;
                                       },
@@ -124,6 +145,8 @@ class _InputFormState extends State<InputForm> {
                                     )),
                                     Expanded(
                                         child: TextFormField(
+                                      initialValue: widget.data['time'][5] +
+                                          widget.data['time'][6],
                                       keyboardType: TextInputType.datetime,
                                       onChanged: (value) {
                                         minute = value;
@@ -197,7 +220,7 @@ class _InputFormState extends State<InputForm> {
                                     validate();
                                   },
                                   child: Text(
-                                    "Save",
+                                    "Update",
                                     style: TextStyle(
                                         fontSize: 18, color: Colors.blue),
                                   ),
@@ -235,9 +258,14 @@ class _InputFormState extends State<InputForm> {
   }
 
   save() async {
-    print(time);
-    int i = await DatabaseHelper.instance
-        .insert({"day": day, "subject": Subject, "url": url, "time": time});
+    print(Subject);
+    int i = await DatabaseHelper.instance.update({
+      "day": day,
+      "subject": Subject,
+      "url": url,
+      "time": time,
+      "id": widget.data['id']
+    });
     print(i);
     Navigator.pop(context, true);
   }

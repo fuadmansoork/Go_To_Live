@@ -50,7 +50,8 @@ $_day TEXT
 
   Future<List<Map<String, dynamic>>> query(String day) async {
     Database db = await instance.database;
-    return await db.rawQuery("SELECT * FROM $_tablename WHERE $_day='$day'");
+    return await db.rawQuery(
+        "SELECT * FROM $_tablename WHERE $_day='$day' ORDER BY $_time");
   }
 
   Future<List<Map<String, dynamic>>> queryAll() async {
