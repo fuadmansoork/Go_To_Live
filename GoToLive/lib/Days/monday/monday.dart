@@ -1,6 +1,7 @@
 import 'package:GoToLive/Days/monday/update.dart';
 import 'package:GoToLive/database/db.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'input.dart';
@@ -12,16 +13,40 @@ class Monday extends StatefulWidget {
 
 class _MondayState extends State<Monday> {
   var minuteString = "";
+
   var future = DatabaseHelper.instance.query("monday");
   @override
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context).settings.arguments;
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        title: Text(arguments['title']),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [
+            Colors.grey[600],
+            Colors.grey[700],
+          ])),
+        ),
+        centerTitle: true,
+        title: Text(
+          arguments['title'],
+          style: GoogleFonts.architectsDaughter(fontSize: 30),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: Container(
+          width: 60,
+          height: 60,
+          child: Icon(
+            Icons.add,
+            size: 30,
+          ),
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient:
+                  LinearGradient(colors: [Colors.grey[700], Colors.grey[500]])),
+        ),
         onPressed: () async {
           bool result = await Navigator.push(
               context,
@@ -54,101 +79,123 @@ class _MondayState extends State<Monday> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Card(
+                    shadowColor: Colors.grey[800],
+                    elevation: 6,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(12),
-                            topRight: Radius.circular(12))),
+                        borderRadius: BorderRadius.circular(15)),
                     child: Column(
                       children: [
                         Container(
-                          height: 70,
+                          height: MediaQuery.of(context).size.height / 9,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              color: Colors.pink,
+                              gradient: LinearGradient(colors: [
+                                Colors.teal[800],
+                                Colors.teal[600],
+                                Colors.teal[400]
+                              ]),
                               borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(12),
-                                  topRight: Radius.circular(12))),
+                                  topLeft: Radius.circular(15),
+                                  topRight: Radius.circular(15))),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                snapshot.data[index]['subject'],
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white),
+                              Flexible(
+                                child: Text(
+                                  snapshot.data[index]['subject'],
+                                  style: GoogleFonts.amiri(
+                                    fontSize: 24,
+                                    color: Colors.white,
+                                    //fontWeight: FontWeight.bold
+                                  ),
+                                ),
                               ),
-                              Text(
-                                snapshot.data[index]['hour'].toString() +
-                                    ':' +
-                                    minuteString +
-                                    " " +
-                                    snapshot.data[index]['meridian'],
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 15),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.red[400],
+                                      borderRadius: BorderRadius.circular(8)),
+                                  height: 40,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 5, vertical: 8),
+                                  child: Text(
+                                      snapshot.data[index]['hour'].toString() +
+                                          ':' +
+                                          minuteString +
+                                          " " +
+                                          snapshot.data[index]['meridian'],
+                                      style: GoogleFonts.rubik(
+                                          fontSize: 18, color: Colors.white)),
+                                ),
                               )
                             ],
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            IconButton(
-                              icon: Icon(
-                                Icons.edit,
-                                color: Colors.red,
+                        Container(
+                          height: MediaQuery.of(context).size.height / 12,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              IconButton(
+                                icon: Icon(
+                                  Icons.edit,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () async {
+                                  bool result = await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => UpdateForm(
+                                            data: snapshot.data[index]),
+                                      ));
+                                  if (result == true) {
+                                    setState(() {
+                                      future = DatabaseHelper.instance
+                                          .query("monday");
+                                    });
+                                  }
+                                },
                               ),
-                              onPressed: () async {
-                                bool result = await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => UpdateForm(
-                                          data: snapshot.data[index]),
-                                    ));
-                                if (result == true) {
-                                  setState(() {
-                                    future =
-                                        DatabaseHelper.instance.query("monday");
-                                  });
-                                }
-                              },
-                            ),
-                            RaisedButton(
-                              onPressed: () async {
-                                final url = snapshot.data[index]['url'];
-                                if (await canLaunch(url)) {
-                                  await launch(url);
-                                } else {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                      actions: [
-                                        FlatButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text("OK"))
-                                      ],
-                                      title: Text(
-                                        "Unable to launch URL",
-                                        style: TextStyle(color: Colors.red),
+                              RaisedButton(
+                                onPressed: () async {
+                                  final url = snapshot.data[index]['url'];
+                                  if (await canLaunch(url)) {
+                                    await launch(url);
+                                  } else {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        actions: [
+                                          FlatButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text("OK"))
+                                        ],
+                                        title: Text(
+                                          "Unable to launch URL",
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                        content: Text(
+                                            "Verify that you entered a valid url"),
                                       ),
-                                      content: Text(
-                                          "Verify that you entered a valid url"),
-                                    ),
-                                  );
-                                }
-                              },
-                              child: Text("Join Class"),
-                            ),
-                            IconButton(
-                              icon: Icon(
-                                Icons.delete,
-                                color: Colors.red,
+                                    );
+                                  }
+                                },
+                                child: Text("Join Class"),
                               ),
-                              onPressed: () {
-                                delete(context, snapshot.data[index]['id']);
-                              },
-                            )
-                          ],
+                              IconButton(
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () {
+                                  delete(context, snapshot.data[index]['id']);
+                                },
+                              )
+                            ],
+                          ),
                         )
                       ],
                     ),

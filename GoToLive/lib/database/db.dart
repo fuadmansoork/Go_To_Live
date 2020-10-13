@@ -52,6 +52,11 @@ $_day TEXT
     return await db.insert(_tablename, row);
   }
 
+  Future<List<Map<String, dynamic>>> query1(String day) async {
+    Database db = await instance.database;
+    return await db.rawQuery("SELECT * FROM $_tablename WHERE $_day='$day'");
+  }
+
   Future<List<Map<String, dynamic>>> query(String day) async {
     Database db = await instance.database;
     return await db.rawQuery(
