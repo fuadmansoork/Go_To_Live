@@ -7,14 +7,24 @@ import 'package:url_launcher/url_launcher.dart';
 import 'input.dart';
 
 class Monday extends StatefulWidget {
+  final String title;
+  final String query;
+
+  const Monday({Key key, this.title, this.query}) : super(key: key);
   @override
   _MondayState createState() => _MondayState();
 }
 
 class _MondayState extends State<Monday> {
   var minuteString = "";
+  var future;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    future = DatabaseHelper.instance.query(widget.query);
+  }
 
-  var future = DatabaseHelper.instance.query("monday");
   @override
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context).settings.arguments;
@@ -30,7 +40,7 @@ class _MondayState extends State<Monday> {
         ),
         centerTitle: true,
         title: Text(
-          arguments['title'],
+          widget.title,
           style: GoogleFonts.architectsDaughter(fontSize: 30),
         ),
       ),
@@ -51,11 +61,11 @@ class _MondayState extends State<Monday> {
           bool result = await Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => InputForm(),
+                builder: (context) => InputForm(day: widget.query),
               ));
           setState(() {
             if (result == true) {
-              future = DatabaseHelper.instance.query("monday");
+              future = DatabaseHelper.instance.query(widget.query);
             }
             print(result);
           });
@@ -152,7 +162,7 @@ class _MondayState extends State<Monday> {
                                   if (result == true) {
                                     setState(() {
                                       future = DatabaseHelper.instance
-                                          .query("monday");
+                                          .query(widget.query);
                                     });
                                   }
                                 },
@@ -228,7 +238,7 @@ class _MondayState extends State<Monday> {
                 onPressed: () async {
                   await DatabaseHelper.instance.delete(id);
                   setState(() {
-                    future = DatabaseHelper.instance.query("monday");
+                    future = DatabaseHelper.instance.query(widget.query);
                   });
                   Navigator.pop(context);
                 },

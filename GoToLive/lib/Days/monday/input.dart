@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
 class InputForm extends StatefulWidget {
+  final String day;
+
+  const InputForm({Key key, this.day}) : super(key: key);
   @override
   _InputFormState createState() => _InputFormState();
 }
@@ -18,7 +21,7 @@ class _InputFormState extends State<InputForm> {
 
   var Subject = "";
   String url = "";
-  String day = "monday";
+  String day = "";
   var hour = "";
   var minute = "";
   var time = "";
@@ -259,7 +262,7 @@ class _InputFormState extends State<InputForm> {
   save() async {
     print(time);
     int i = await DatabaseHelper.instance.insert({
-      "day": day,
+      "day": widget.day,
       "subject": Subject,
       "url": url,
       "hour": int.parse(hour),

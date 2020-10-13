@@ -1,3 +1,4 @@
+import 'package:GoToLive/Days/monday/monday.dart';
 import 'package:flutter/material.dart';
 
 class Days extends StatelessWidget {
@@ -22,8 +23,14 @@ class Days extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context)
-                          .pushNamed('/monday', arguments: {'title': "Monday"});
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Monday(
+                              title: "Monday",
+                              query: "monday",
+                            ),
+                          ));
                     },
                     child: Padding(
                       padding:
@@ -50,8 +57,14 @@ class Days extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context)
-                          .pushNamed('/tuesday', arguments: {'title': "Thesday"});
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Monday(
+                              title: "Tuesday",
+                              query: "tuesday",
+                            ),
+                          ));
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 100),
@@ -77,7 +90,14 @@ class Days extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed('/wednesday');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Monday(
+                              title: "Wednesday",
+                              query: "wednesday",
+                            ),
+                          ));
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 100, right: 100),
@@ -103,7 +123,14 @@ class Days extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed('/thursday');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Monday(
+                              title: "Thursday",
+                              query: "thursday",
+                            ),
+                          ));
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 100, right: 100),
@@ -129,7 +156,14 @@ class Days extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed('/friday');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Monday(
+                              title: "Friday",
+                              query: "friday",
+                            ),
+                          ));
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 100, right: 100),

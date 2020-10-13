@@ -22,7 +22,7 @@ class _UpdateFormState extends State<UpdateForm> {
   var minuteController = TextEditingController();
   var Subject = "";
   String url = "";
-  String day = "monday";
+  String day = "";
   var hour = "";
   var minute = "";
   var time = "";
@@ -273,7 +273,7 @@ class _UpdateFormState extends State<UpdateForm> {
   save() async {
     print(Subject);
     int i = await DatabaseHelper.instance.update({
-      "day": day,
+      "day": widget.data['day'],
       "subject": Subject,
       "url": url,
       "hour": int.parse(hour),

@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/days': (context) => Days(),
-        '/monday': (context) => Monday(),
+        // '/monday': (context) => Monday(),
         // '/tuesday': (context) => Tuesday(),
         //   '/wednesday': (context) => Wednesday(),
         //   '/thursday': (context) => Thursday(),
