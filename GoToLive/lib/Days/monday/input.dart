@@ -29,7 +29,7 @@ class _InputFormState extends State<InputForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //  resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(
             gradient: new LinearGradient(
@@ -97,7 +97,8 @@ class _InputFormState extends State<InputForm> {
                                         focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                                 color: Colors.grey[700])),
-                                        labelText: "Classrom link",
+                                        labelText:
+                                            "Paste your class room link here",
                                         labelStyle: TextStyle(fontSize: 15),
                                         hintText: "https://example.com",
                                         border: OutlineInputBorder(

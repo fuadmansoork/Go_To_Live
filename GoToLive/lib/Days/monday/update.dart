@@ -48,6 +48,7 @@ class _UpdateFormState extends State<UpdateForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.grey,
       body: Center(
         child: Container(
@@ -85,6 +86,7 @@ class _UpdateFormState extends State<UpdateForm> {
                                     }
                                   },
                                   decoration: InputDecoration(
+                                    hintText: "Subject name",
                                     focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                             color: Colors.grey[700])),
@@ -105,6 +107,9 @@ class _UpdateFormState extends State<UpdateForm> {
                                     print(url);
                                   },
                                   decoration: InputDecoration(
+                                      hintText:
+                                          "Paste your class room link here",
+                                      hintStyle: TextStyle(fontSize: 15),
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.grey[700])),

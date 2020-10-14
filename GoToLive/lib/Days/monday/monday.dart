@@ -220,8 +220,25 @@ class _MondayState extends State<Monday> {
                                             "Unable to launch URL",
                                             style: TextStyle(color: Colors.red),
                                           ),
-                                          content: Text(
-                                              "Verify that you entered a valid url"),
+                                          content: Container(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.2,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    "Verify that you entered a valid url"),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                    "Make sure that you added https:// or http:// in your url")
+                                              ],
+                                            ),
+                                          ),
                                         ),
                                       );
                                     }
