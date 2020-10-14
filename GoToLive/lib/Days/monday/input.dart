@@ -40,9 +40,10 @@ class _InputFormState extends State<InputForm> {
         )),
         child: Center(
           child: Container(
+            margin: EdgeInsets.only(top: 20),
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-            padding: EdgeInsets.all(20),
-            height: MediaQuery.of(context).size.height * 0.5,
+            padding: EdgeInsets.all(10),
+            height: MediaQuery.of(context).size.height,
             child: Scrollbar(
               controller: _scrollcontroller,
               isAlwaysShown: true,
@@ -60,8 +61,8 @@ class _InputFormState extends State<InputForm> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 10),
+                                  padding: const EdgeInsets.only(
+                                      top: 15, left: 15, right: 15),
                                   child: TextFormField(
                                     maxLength: 25,
                                     onChanged: (value) {
@@ -77,15 +78,16 @@ class _InputFormState extends State<InputForm> {
                                           borderSide: BorderSide(
                                               color: Colors.grey[700])),
                                       labelText: "Subject Name",
+                                      labelStyle: TextStyle(fontSize: 15),
                                       border: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(20)),
+                                              BorderRadius.circular(8)),
                                     ),
                                   ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 10),
+                                      vertical: 10.0, horizontal: 15),
                                   child: TextFormField(
                                     onChanged: (value) {
                                       url = value;
@@ -96,10 +98,11 @@ class _InputFormState extends State<InputForm> {
                                             borderSide: BorderSide(
                                                 color: Colors.grey[700])),
                                         labelText: "Classrom link",
+                                        labelStyle: TextStyle(fontSize: 15),
                                         hintText: "https://example.com",
                                         border: OutlineInputBorder(
                                             borderRadius:
-                                                BorderRadius.circular(20))),
+                                                BorderRadius.circular(8))),
                                   ),
                                 ),
                                 Row(

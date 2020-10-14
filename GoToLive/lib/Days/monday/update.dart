@@ -51,9 +51,10 @@ class _UpdateFormState extends State<UpdateForm> {
       backgroundColor: Colors.grey,
       body: Center(
         child: Container(
+          margin: EdgeInsets.only(top: 20),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-          padding: EdgeInsets.all(20),
-          height: MediaQuery.of(context).size.height * 0.5,
+          padding: EdgeInsets.all(10),
+          height: MediaQuery.of(context).size.height,
           child: Scrollbar(
             isAlwaysShown: true,
             controller: _scrollcontroller,
@@ -90,8 +91,7 @@ class _UpdateFormState extends State<UpdateForm> {
                                     border: OutlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.grey[200]),
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
+                                        borderRadius: BorderRadius.circular(8)),
                                   ),
                                 ),
                               ),
@@ -110,7 +110,7 @@ class _UpdateFormState extends State<UpdateForm> {
                                               color: Colors.grey[700])),
                                       border: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(20))),
+                                              BorderRadius.circular(8))),
                                 ),
                               ),
                               Row(
