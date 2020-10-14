@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'Days/monday/monday.dart';
 
-import 'Days/tuesday.dart';
-
 import 'HomePage/Days.dart';
 import 'HomePage/Homepage.dart';
 
@@ -16,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.

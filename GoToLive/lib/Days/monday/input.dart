@@ -11,6 +11,7 @@ class InputForm extends StatefulWidget {
 }
 
 class _InputFormState extends State<InputForm> {
+  final _scrollcontroller = ScrollController();
   String timeText = "";
   var meridian = "am";
   var subjectController = TextEditingController();
@@ -42,195 +43,202 @@ class _InputFormState extends State<InputForm> {
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
             padding: EdgeInsets.all(20),
             height: MediaQuery.of(context).size.height * 0.5,
-            child: SingleChildScrollView(
-              child: Card(
-                color: Colors.grey[200],
-                elevation: 10,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Form(
-                        key: _formKey,
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 10),
-                                child: TextFormField(
-                                  maxLength: 25,
-                                  onChanged: (value) {
-                                    Subject = value;
-                                  },
-                                  validator: (value) {
-                                    if (value.isEmpty) {
-                                      return "Please enter a subject name";
-                                    }
-                                  },
-                                  decoration: InputDecoration(
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.grey[700])),
-                                    labelText: "Subject Name",
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 10),
-                                child: TextFormField(
-                                  onChanged: (value) {
-                                    url = value;
-                                    print(url);
-                                  },
-                                  decoration: InputDecoration(
+            child: Scrollbar(
+              controller: _scrollcontroller,
+              isAlwaysShown: true,
+              child: SingleChildScrollView(
+                controller: _scrollcontroller,
+                child: Card(
+                  color: Colors.grey[200],
+                  elevation: 10,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Form(
+                          key: _formKey,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 10),
+                                  child: TextFormField(
+                                    maxLength: 25,
+                                    onChanged: (value) {
+                                      Subject = value;
+                                    },
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return "Please enter a subject name";
+                                      }
+                                    },
+                                    decoration: InputDecoration(
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.grey[700])),
-                                      labelText: "Classrom link",
-                                      hintText: "https://example.com",
+                                      labelText: "Subject Name",
                                       border: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(20))),
+                                              BorderRadius.circular(20)),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(top: 5),
-                                    height: 100,
-                                    width: 200,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Expanded(
-                                            child: TextFormField(
-                                          onChanged: (value) {
-                                            hour = value;
-                                          },
-                                          keyboardType: TextInputType.datetime,
-                                          validator: (value) {
-                                            if (value.isEmpty) {
-                                              return "Time";
-                                            }
-                                            if (int.parse(value) <= 0 ||
-                                                int.parse(value) > 12) {
-                                              return "Invalid";
-                                            }
-                                          },
-                                          maxLength: 2,
-                                          decoration: InputDecoration(
-                                            hintText: "HH",
-                                            contentPadding:
-                                                EdgeInsets.only(left: 15),
-                                            counterText: "",
-                                            border: OutlineInputBorder(),
-                                          ),
-                                        )),
-                                        Flexible(
-                                            child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 5.0),
-                                          child: Text(
-                                            ":",
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        )),
-                                        Expanded(
-                                            child: TextFormField(
-                                          keyboardType: TextInputType.datetime,
-                                          onChanged: (value) {
-                                            minute = value;
-                                          },
-                                          validator: (value) {
-                                            if (value.isEmpty) {
-                                              return "Time";
-                                            }
-                                            if (int.parse(value) > 59 ||
-                                                int.parse(value) < 0) {
-                                              return "Invalid";
-                                            }
-                                          },
-                                          maxLength: 2,
-                                          decoration: InputDecoration(
-                                            hintText: "MM",
-                                            counterText: "",
-                                            contentPadding:
-                                                EdgeInsets.only(left: 15),
-                                            border: OutlineInputBorder(),
-                                          ),
-                                        )),
-                                      ],
-                                    ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10),
+                                  child: TextFormField(
+                                    onChanged: (value) {
+                                      url = value;
+                                      print(url);
+                                    },
+                                    decoration: InputDecoration(
+                                        focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.grey[700])),
+                                        labelText: "Classrom link",
+                                        hintText: "https://example.com",
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20))),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 8.0),
-                                    child: ToggleSwitch(
-                                      activeBgColor: Colors.grey[800],
-                                      inactiveBgColor: Colors.grey[400],
-                                      cornerRadius: 8,
-                                      changeOnTap: true,
-                                      minWidth: 45,
-                                      initialLabelIndex: 0,
-                                      labels: ["AM", "PM"],
-                                      onToggle: (index) {
-                                        print('switched to: $index');
-                                        if (index == 0) {
-                                          meridian = "am";
-                                        } else {
-                                          meridian = "pm";
-                                        }
-                                        print(meridian);
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 30.0),
-                                child: Row(
+                                ),
+                                Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    FlatButton(
-                                      child: Text(
-                                        "Cancel",
-                                        style: TextStyle(
-                                            color: Colors.red, fontSize: 18),
+                                    Container(
+                                      margin: EdgeInsets.only(top: 5),
+                                      height: 100,
+                                      width: 200,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Expanded(
+                                              child: TextFormField(
+                                            onChanged: (value) {
+                                              hour = value;
+                                            },
+                                            keyboardType:
+                                                TextInputType.datetime,
+                                            validator: (value) {
+                                              if (value.isEmpty) {
+                                                return "Time";
+                                              }
+                                              if (int.parse(value) <= 0 ||
+                                                  int.parse(value) > 12) {
+                                                return "Invalid";
+                                              }
+                                            },
+                                            maxLength: 2,
+                                            decoration: InputDecoration(
+                                              hintText: "HH",
+                                              contentPadding:
+                                                  EdgeInsets.only(left: 15),
+                                              counterText: "",
+                                              border: OutlineInputBorder(),
+                                            ),
+                                          )),
+                                          Flexible(
+                                              child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 5.0),
+                                            child: Text(
+                                              ":",
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          )),
+                                          Expanded(
+                                              child: TextFormField(
+                                            keyboardType:
+                                                TextInputType.datetime,
+                                            onChanged: (value) {
+                                              minute = value;
+                                            },
+                                            validator: (value) {
+                                              if (value.isEmpty) {
+                                                return "Time";
+                                              }
+                                              if (int.parse(value) > 59 ||
+                                                  int.parse(value) < 0) {
+                                                return "Invalid";
+                                              }
+                                            },
+                                            maxLength: 2,
+                                            decoration: InputDecoration(
+                                              hintText: "MM",
+                                              counterText: "",
+                                              contentPadding:
+                                                  EdgeInsets.only(left: 15),
+                                              border: OutlineInputBorder(),
+                                            ),
+                                          )),
+                                        ],
                                       ),
-                                      onPressed: () {
-                                        setState(() {
-                                          subjectController.clear();
-                                          linkController.clear();
-                                          minuteController.clear();
-                                          hourController.clear();
-                                        });
-                                        Navigator.pop(context);
-                                      },
                                     ),
-                                    FlatButton(
-                                      onPressed: () {
-                                        validate();
-                                      },
-                                      child: Text(
-                                        "Save",
-                                        style: TextStyle(
-                                            fontSize: 18, color: Colors.blue),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: ToggleSwitch(
+                                        activeBgColor: Colors.grey[800],
+                                        inactiveBgColor: Colors.grey[400],
+                                        cornerRadius: 8,
+                                        changeOnTap: true,
+                                        minWidth: 45,
+                                        initialLabelIndex: 0,
+                                        labels: ["AM", "PM"],
+                                        onToggle: (index) {
+                                          print('switched to: $index');
+                                          if (index == 0) {
+                                            meridian = "am";
+                                          } else {
+                                            meridian = "pm";
+                                          }
+                                          print(meridian);
+                                        },
                                       ),
                                     ),
                                   ],
                                 ),
-                              )
-                            ])),
-                  ],
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 30.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      FlatButton(
+                                        child: Text(
+                                          "Cancel",
+                                          style: TextStyle(
+                                              color: Colors.red, fontSize: 18),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            subjectController.clear();
+                                            linkController.clear();
+                                            minuteController.clear();
+                                            hourController.clear();
+                                          });
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                      FlatButton(
+                                        onPressed: () {
+                                          validate();
+                                        },
+                                        child: Text(
+                                          "Save",
+                                          style: TextStyle(
+                                              fontSize: 18, color: Colors.blue),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ])),
+                    ],
+                  ),
                 ),
               ),
             ),

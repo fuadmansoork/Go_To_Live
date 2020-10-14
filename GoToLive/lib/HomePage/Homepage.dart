@@ -32,13 +32,12 @@ class HomePage extends StatelessWidget {
                         gradient: LinearGradient(colors: <Color>[
                           Color(0xFF1E88E5),
                           Color(0xFF1976D2),
-                          Color(0xFF42A5F5),
                         ]),
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
                         Icons.arrow_forward_ios,
-                        color: Colors.cyan,
+                        color: Colors.white,
                       )),
                 ),
               )
