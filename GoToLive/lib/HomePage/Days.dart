@@ -44,7 +44,7 @@ class Days extends StatelessWidget {
                       child: Text(
                     "MONDAY",
                     style: TextStyle(
-                        fontSize: 25,
+                        fontSize: 22,
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
                   )),
@@ -79,7 +79,7 @@ class Days extends StatelessWidget {
                       child: Text(
                     "TUESDAY",
                     style: TextStyle(
-                        fontSize: 25,
+                        fontSize: 22,
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
                   )),
@@ -113,7 +113,7 @@ class Days extends StatelessWidget {
                   child: Center(
                       child: Text("WEDNESDAY",
                           style: TextStyle(
-                              fontSize: 25,
+                              fontSize: 22,
                               color: Colors.white,
                               fontWeight: FontWeight.bold))),
                 ),
@@ -146,7 +146,7 @@ class Days extends StatelessWidget {
                   child: Center(
                       child: Text("THURSDAY",
                           style: TextStyle(
-                              fontSize: 25,
+                              fontSize: 22,
                               color: Colors.white,
                               fontWeight: FontWeight.bold))),
                 ),
@@ -179,7 +179,7 @@ class Days extends StatelessWidget {
                   child: Center(
                       child: Text("FRIDAY",
                           style: TextStyle(
-                              fontSize: 25,
+                              fontSize: 22,
                               color: Colors.white,
                               fontWeight: FontWeight.bold))),
                 ),
